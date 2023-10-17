@@ -1,21 +1,19 @@
-"use client"
-
 import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
-import { usePathname } from "next/navigation"
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const poppins = Montserrat({weight: '600', subsets: ['latin']})
 
 const Sidebar = () => {
-  const pathname = usePathname();
   
   const routes = [
     {
         label: 'Chat',
         icon: '/chat.png',
-        active: pathname === '/',
+        active: false,
         href: '/',
     },
     {
@@ -42,7 +40,7 @@ const Sidebar = () => {
   ]
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-[#112827] text-white">
-        <div className="px-3 py-2">
+        <div className="px-3 py-2 flex-1">
             <div className="flex items-center pl-3 mb-14">
                 <div className="relative h-10 w-10 mr-4">
                     <Image fill alt="logo" src="/nira.png" />
@@ -69,6 +67,13 @@ const Sidebar = () => {
                     </div>
                 ))}
             </div>
+        </div>
+        <div className="px-3 py-2">
+            <LogoutLink>
+                <Button variant="secondary" className="w-full">
+                    Logout
+                </Button>
+            </LogoutLink>
         </div>
     </div>
   )
