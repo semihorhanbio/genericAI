@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
-import {Sidebar} from "@/components/Sidebar"
+import { Image } from "next/image"
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -12,17 +12,11 @@ const HomePage = () => {
   const user = getUser()
 
   return (
-    <div className="h-full">
-      <div className="grid grid-cols-10 h-full">
-        <div className="col-span-3 h-full">
-          <Sidebar />
-        </div>
-        <div className="col-span-5 border-1">
-          <div className="h-full py-6 px-8">
-            Logged in as: {user.given_name}
-          </div>
-        </div>
+    <div className="h-full flex flex-col items-center justify-center">
+      <div className="relative h-72 w-72">
+        <Image src="/empty.png" alt="Empty" fill />
       </div>
+      <p className="text-muted-foreground text-center">You don&apos;t have any projects yet. <br /> Please create one.</p>
     </div>
   )
 }
