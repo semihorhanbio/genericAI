@@ -1,46 +1,46 @@
-import { cn } from "@/lib/utils";
-import { Montserrat } from "next/font/google";
+"use client";
+
+import Link from "next/link";
 import Image from "next/image";
+import { Montserrat } from 'next/font/google'
+import { Zap } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Zap } from "lucide-react";
 
 const poppins = Montserrat({weight: '600', subsets: ['latin']})
 
 const Sidebar = () => {
-  
+  const pathname = usePathname()
   const routes = [
     {
         label: 'Home',
         icon: '/home.png',
-        active: true,
-        href: '/',
+        href: '/dashboard',
     },
     {
         label: 'Chat',
         icon: '/chat.png',
-        active: false,
-        href: '/',
+        href: '/chat',
     },
     {
-        label: 'Image Generator',
-        icon: '/image.png',
-        active: false,
-        href: '/image',
+        label: 'Photo Generator',
+        icon: '/Photo.png',
+        href: '/photo',
         premium: true,
     },
     {
         label: 'Blog Writer',
         icon: '/blog.png',
-        active: false,
         href: '/blog',
         premium: true,
     },
     {
-        label: 'Email Writer',
+        label: 'mail Writer',
         icon: '/mail.png',
-        active: false,
-        href: '/email',
+        href: '/mail',
         premium: true,
     }
   ]
@@ -48,16 +48,17 @@ const Sidebar = () => {
     <div className="space-y-4 py-4 flex flex-col h-full bg-[#112827] text-white">
         <div className="px-3 py-2 flex-1">
             <div className="flex items-center pl-3 mb-14">
-                <div className="relative h-7 w-7 mr-4">
+                <div className="relative h-8 w-8 mr-4">
                     <Image fill alt="logo" src="/nira.png" />
                 </div>
-                <h1 className={cn("text-xl font-bold", poppins.className)}>Generic AI</h1>
+                <h1 className={cn("text-2xl font-bold", poppins.className)}>Generic AI</h1>
             </div>
             <div className="space-y-1">
                 {routes.map(route => (
-                    <div
+                    <Link
                         key={route.label}
-                        className={cn("text-sm group flex p-3 w-full justify-start font-semibold cursor-pointer hover:text-white transition", route.active ? "text-white" : "text-zinc-400")}
+                        href={route.href}
+                        className={cn("text-sm group flex p-3 w-full justify-start font-semibold cursor-pointer hover:text-white transition", pathname === route.href ? "text-white" : "text-zinc-400")}
                     >
                         <div className="flex items-center flex-1">
                             <div className="relative h-8 w-8 mr-4 group-hover:scale-125 transition duration-150">
@@ -70,7 +71,7 @@ const Sidebar = () => {
                                 pro
                             </Badge>
                         )}
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
